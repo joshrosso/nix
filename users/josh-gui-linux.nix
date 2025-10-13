@@ -22,12 +22,12 @@
     protontricks
     jumpapp
     zoom-us
-    signal-desktop
+    #signal-desktop
     spotify
     obs-studio
-    drawio
+    #drawio
     google-chrome
-    slack
+    #slack
     wineWowPackages.unstable
     winetricks
     firefox
@@ -39,7 +39,7 @@
     pavucontrol
     vscode
     arandr
-    discord
+    #discord
     xclip
     pinentry
   ];

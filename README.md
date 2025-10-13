@@ -42,12 +42,49 @@ joshrosso's nix configuraitons for reproducibility from Linux, to Mac, to Hyperv
 lsblk -f
 ```
 
-* add it to `desktops/configuration.nix` in the efi section.
+* In this case the UUID would be `5024cc49-06bf-4b4f-8b78-7ded9ca2e536`.
+
+    ```
+    nvme0n1
+    ├─nvme0n1p1     vfat        FAT16                                       812C-E3A3                               499.7M     0% /mnt/boot
+    └─nvme0n1p2     crypto_LUKS 2                                           5024cc49-06bf-4b4f-8b78-7ded9ca2e536
+      └─crypted     LVM2_member LVM2 001                                    BEc6bR-FsCR-4znX-uiHD-s63T-cFgj-M4yU80
+        ├─pool-home ext4        1.0                                         a87cf92f-7d04-44d1-9e2e-dd809a18ca15    746.4G     0% /mnt/home
+        ├─pool-raw
+        └─pool-root ext4        1.0                                         d5d90798-a9e4-4174-ab2f-991f5b322a9a    185.8G     0% /mnt
+    ```
+
+* add the following to the hardware-configuration.
+
+```sh
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        enableCryptodisk = true;
+        # 30 is for HIDPI
+        fontSize = 30;
+        extraEntries = ''
+          menuentry 'Windows 11' {
+            search --fs-uuid --no-floppy --set=root A8C3-093C
+            chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
+          }
+        '';
+      };
+    };
+    initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/5865bbe2-a5c4-4b6a-991f-c8eab8fb7bf8";
+  };
+```
+
+> The windows entry is just a placeholder for when Windows is installed later.
 
 * scp config over
 
 ```sh
-ssh root@${NIX_ADDR} 'mkdir -p /mnt/tmp/install' && scp -r ./ root@192.168.0.11:/mnt/tmp/install
+ssh root@${NIX_ADDR} 'mkdir -p /mnt/tmp/install' && scp -r ./ root@${NIX_ADDR}:/mnt/tmp/install
 ```
 
 * install nixos with flake

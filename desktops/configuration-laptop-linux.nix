@@ -9,7 +9,8 @@
   # namely, disable GPU and other tweaks.
   specialisation = {
     battery-saver.configuration = {
-      services.tlp.enable = true;
+      # had to disable, some kinda KDE conflict. Could go back if changin DEs.
+      #services.tlp.enable = true;
       system.nixos.tags = [ "battery-saver" ];
       services.xserver.videoDrivers = lib.mkForce [ ];
       hardware.nvidia = {

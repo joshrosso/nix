@@ -10,27 +10,6 @@
   # https://github.com/NixOS/nix/issues/11728
   nix.settings.download-buffer-size = 524288000;
 
-  boot = {
-    loader = {
-      efi.canTouchEfiVariables = true;
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-        enableCryptodisk = true;
-        # 30 is for HIDPI
-        fontSize = 30;
-        extraEntries = ''
-          menuentry 'Windows 11' {
-            search --fs-uuid --no-floppy --set=root A8C3-093C
-            chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
-          }
-        '';
-      };
-    };
-    initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/5865bbe2-a5c4-4b6a-991f-c8eab8fb7bf8";
-  };
-
   # kernel setting to support OBS virtual cam (https://nixos.wiki/wiki/OBS_Studio)
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
