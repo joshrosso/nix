@@ -7,6 +7,14 @@
 
 {
 
+  services.vsftpd = {
+    enable = true;
+    localRoot = "/home/josh/Documents/ftp";
+    localUsers = true; # Allow local users
+    writeEnable = true; # Allow local users to upload
+    userlist = [ "josh" ]; # Path to a file listing allowed users
+  };
+
   # https://github.com/NixOS/nix/issues/11728
   nix.settings.download-buffer-size = 524288000;
 

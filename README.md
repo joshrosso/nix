@@ -106,3 +106,8 @@ sudo nix flake update
 ```sh
 darwin-rebuild switch --flake ./mbp
 ```
+
+### Windows Dual-Boot Notes
+
+* Don't forget to disable fast startup. It can cause weird issues such as breaking linux wifi.
+    * https://www.reddit.com/r/archlinux/comments/kuy8fq/wifi_not_working_iwlwifi_failed_with_error_110
