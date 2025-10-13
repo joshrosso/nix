@@ -69,7 +69,7 @@
         fontSize = 30;
         extraEntries = ''
           menuentry 'Windows 11' {
-            search --fs-uuid --no-floppy --set=root A8C3-093C
+            search --fs-uuid --no-floppy --set=root CC763BC6763BAFD6
             chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
           }
         '';
