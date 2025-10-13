@@ -111,3 +111,8 @@ darwin-rebuild switch --flake ./mbp
 
 * Don't forget to disable fast startup. It can cause weird issues such as breaking linux wifi.
     * https://www.reddit.com/r/archlinux/comments/kuy8fq/wifi_not_working_iwlwifi_failed_with_error_110
+
+* If you install windows after nix, likely going to need to reinstall the bootloader. Go back in through the installation media and mount the drives, then run:
+    ```
+    NIXOS_INSTALL_BOOTLOADER=1 /nix/var/nix/profiles/system/bin/switch-to-configuration boot
+    ```
