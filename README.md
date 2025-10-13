@@ -13,7 +13,7 @@ joshrosso's nix configuraitons for reproducibility from Linux, to Mac, to Hyperv
 * move disk setup over
 
   ```sh
-  scp skelly/disk-layout.nix nixos@192.168.0.11:~
+  scp skelly/disk-layout.nix nixos@${NIX_ADDR}:~
   ```
 
 * set encryption passphrase
