@@ -18,7 +18,7 @@
               };
             };
             luks = {
-              size = "100%";
+              size = "1000GB";
               content = {
                 type = "luks";
                 name = "crypted";
