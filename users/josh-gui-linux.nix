@@ -11,6 +11,7 @@
   services.blueman-applet.enable = true;
 
   home.packages = with pkgs; [
+    pciutils
     claude-code
     vlc
     jackett
