@@ -11,6 +11,8 @@
   services.blueman-applet.enable = true;
 
   home.packages = with pkgs; [
+    # debugging access points & wireless connections
+    iw
     pciutils
     claude-code
     vlc
@@ -95,7 +97,8 @@
           "~/.config/alacritty/themes/themes/alabaster.yaml"
         ];
       */
-      import = [ "~/.config/alacritty/themes/themes/catppuccin_macchiato.yaml" ];
+      general.import = [ "~/.config/alacritty/themes/themes/catppuccin_macchiato.yaml" ];
+      terminal.shell.program = "/etc/profiles/per-user/josh/bin/tmux";
       keyboard.bindings = [
         {
           key = "Key1";
