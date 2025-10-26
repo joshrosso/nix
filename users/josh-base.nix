@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
 
@@ -42,6 +47,9 @@
     kubectl
     kustomize
     go
+    rustc
+    cargo
+    rust-bindgen-unwrapped
     htop
     unzip
     tree
@@ -140,36 +148,36 @@
     };
   };
 
-#  programs.ssh = {
-#    enable = true;
-#    matchBlocks = {
-#      "h1" = {
-#        user = "root";
-#        identityFile = "~/.ssh/homelab";
-#      };
-#      "h2" = {
-#        user = "root";
-#        identityFile = "~/.ssh/homelab";
-#      };
-#      "fenix" = {
-#        user = "josh";
-#        identityFile = "~/.ssh/joshrosso.pem";
-#      };
-#      "github.com" = {
-#        user = "joshrosso";
-#        identityFile = "~/.ssh/joshrosso.pem";
-#      };
-#      "192.168.*" = {
-#        user = "josh";
-#        identityFile = "~/.ssh/joshrosso.pem";
-#      };
-#    };
-#  };
+  #  programs.ssh = {
+  #    enable = true;
+  #    matchBlocks = {
+  #      "h1" = {
+  #        user = "root";
+  #        identityFile = "~/.ssh/homelab";
+  #      };
+  #      "h2" = {
+  #        user = "root";
+  #        identityFile = "~/.ssh/homelab";
+  #      };
+  #      "fenix" = {
+  #        user = "josh";
+  #        identityFile = "~/.ssh/joshrosso.pem";
+  #      };
+  #      "github.com" = {
+  #        user = "joshrosso";
+  #        identityFile = "~/.ssh/joshrosso.pem";
+  #      };
+  #      "192.168.*" = {
+  #        user = "josh";
+  #        identityFile = "~/.ssh/joshrosso.pem";
+  #      };
+  #    };
+  #  };
 
   programs.bash = {
     enable = true;
     enableCompletion = true;
-#
+    #
     # set some aliases, feel free to add more or remove some
     shellAliases = {
       k = "kubectl";
