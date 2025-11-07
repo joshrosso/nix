@@ -114,9 +114,11 @@
   };
 
   services.xserver = {
-    layout = "us"; # or your layout
-    # swaps the windows and alt key for keyboards that can't customize this at the HW level
-    xkbOptions = "altwin:swap_alt_win";
+    xkb = {
+      layout = "us"; # or your layout
+      # swaps the windows and alt key for keyboards that can't customize this at the HW level
+      options = "altwin:swap_alt_win";
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

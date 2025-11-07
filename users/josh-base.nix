@@ -110,13 +110,15 @@
 
   programs.git = {
     enable = true;
-    userName = "joshrosso";
-    userEmail = "joshrosso@gmail.com";
     signing = {
       key = "B076918EE70E30CF98B2EB4AD5CD572310881E88";
       signByDefault = false;
     };
-    extraConfig = {
+    settings = {
+      user = {
+        name = "joshrosso";
+        email = "joshrosso@gmail.com";
+      };
       push.default = "current";
       url."git@github.com:".insteadOf = "https://github.com/";
     };
