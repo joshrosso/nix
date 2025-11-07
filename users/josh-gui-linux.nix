@@ -13,6 +13,7 @@
   home.packages = with pkgs; [
     # debugging access points & wireless connections
     iw
+    television
     claude-code
     pciutils
     claude-code

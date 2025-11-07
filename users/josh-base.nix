@@ -102,6 +102,7 @@
       vimPlugins.neo-tree-nvim
       vimPlugins.lsp-format-nvim
       vimPlugins.copilot-vim
+      vimPlugins.outline-nvim
     ];
 
     extraLuaConfig = (builtins.readFile ./vim.lua);

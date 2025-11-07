@@ -12,6 +12,8 @@ vim.api.nvim_set_hl(0, "@type.builtin.go", { link = "Identifier" })
 vim.g.mapleader = ';'
 -- enable line numbers
 vim.opt.number = true
+-- highlight current line
+vim.opt.cursorline = true
 -- disable swap files
 vim.opt.swapfile = false
 
@@ -33,11 +35,14 @@ vim.opt.swapfile = false
 local bufopts = { noremap=true, silent=true, buffer=bufnr }
 local builtin = require('telescope.builtin')
 
+vim.keymap.set("n", "<leader>n", ":Neotree<CR>", { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>dd', ":TroubleToggle<CR>", bufopts)
 vim.keymap.set('i', 'jj', "<Esc>", bufopts)
-vim.keymap.set('n', '<leader>dd', "<cmd>TroubleToggle<cr>", bufopts)
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, bufopts)
 vim.keymap.set('n', '<leader>ff', builtin.find_files, bufopts)
 vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, bufopts)
+vim.keymap.set('n', '<leader>fu', builtin.lsp_references, bufopts)
+vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, bufopts)
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -117,24 +122,25 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Set up lspconfig.
+-- Set up LSP servers using the new vim.lsp.config API (Neovim 0.11+)
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local servers = {
-  "gopls", 
-  "terraformls", 
+  "gopls",
+  "terraformls",
   "rust_analyzer",
   "nil_ls"
 }
 for _, server in ipairs(servers) do
-  require'lspconfig'[server].setup{
+  vim.lsp.config(server, {
     capabilities = capabilities
-  }
+  })
+  vim.lsp.enable(server)
 end
 
 -- Trouble config --
+require("trouble").setup({})
 local actions = require("telescope.actions")
 local open_with_trouble = require("trouble.sources.telescope").open
-
 -- Use this to add more results without clearing the trouble list
 local add_to_trouble = require("trouble.sources.telescope").add
 
@@ -163,6 +169,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     require("lsp-format").on_attach(client, args.buf)
   end,
 })
+
+require("outline").setup({})
 
 -- config to automatically update buffer when file is modified
 vim.o.autoread = true
