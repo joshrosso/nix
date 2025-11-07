@@ -147,6 +147,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     neovim
+    inetutils
     qpwgraph
     vault-bin
     git

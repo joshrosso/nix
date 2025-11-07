@@ -12,10 +12,14 @@ vim.api.nvim_set_hl(0, "@type.builtin.go", { link = "Identifier" })
 vim.g.mapleader = ';'
 -- enable line numbers
 vim.opt.number = true
+-- make line numbers relative to cursor
+vim.opt.relativenumber = true
 -- highlight current line
 vim.opt.cursorline = true
 -- disable swap files
 vim.opt.swapfile = false
+-- vertically align current line in the middle
+vim.opt.scrolloff = 999
 
 -- ===========================================
 -- Key Mappings
@@ -32,11 +36,12 @@ vim.opt.swapfile = false
    -- o - works recursively in operator pending mode.
    -- NOTE: use noremap in {opts} to make non-recursive
 -- ===========================================
-local bufopts = { noremap=true, silent=true, buffer=bufnr }
+local bufopts = { noremap=true, silent=true }
 local builtin = require('telescope.builtin')
 
-vim.keymap.set("n", "<leader>n", ":Neotree<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>n", ":Neotree<CR>", bufopts)
 vim.keymap.set('n', '<leader>dd', ":TroubleToggle<CR>", bufopts)
+vim.keymap.set('n', '<leader>o', ":Outline<CR>", bufopts)
 vim.keymap.set('i', 'jj', "<Esc>", bufopts)
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, bufopts)
 vim.keymap.set('n', '<leader>ff', builtin.find_files, bufopts)
