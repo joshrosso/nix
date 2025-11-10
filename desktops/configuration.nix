@@ -181,6 +181,7 @@
   # ref: https://discourse.nixos.org/t/disable-a-systemd-service-while-having-it-in-nixoss-conf/12732/3
   systemd.services.docker.wantedBy = lib.mkForce [ ];
   systemd.services.libvirtd.wantedBy = lib.mkForce [ ];
+  systemd.services.grafana.wantedBy = lib.mkForce [ ];
 
   # ============================================
   # [PROGRAMS]
@@ -207,6 +208,16 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  services.grafana = {
+    enable = true;
+    settings.server = {
+      http_addr = "127.0.0.1";
+      http_port = 3000;
+      # optional:
+      domain = "localhost";
+    };
+  };
 
   # Tell Xorg to use the nvidia driver
   # You may not want to do this if using nvidia offload to

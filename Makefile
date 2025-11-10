@@ -1,4 +1,4 @@
-.PHONY: rebuild help
+.PHONY: rebuild update check-host help
 
 # Default target
 .DEFAULT_GOAL := rebuild
@@ -6,7 +6,8 @@
 # Detect the current hostname
 HOST_NAME := $(shell hostname)
 
-rebuild:
+# Validate that the host directory and flake exist
+check-host:
 	@if [ ! -d "$(HOST_NAME)" ]; then \
 		echo "Error: No directory found for hostname '$(HOST_NAME)'"; \
 		echo "Please create a directory and flake configuration for this host"; \
@@ -17,8 +18,14 @@ rebuild:
 		echo "Please create a flake configuration for this host"; \
 		exit 1; \
 	fi
+
+rebuild: check-host
 	@echo "Running: cd $(HOST_NAME) && sudo nixos-rebuild switch --flake .#$(HOST_NAME)"
 	@cd $(HOST_NAME) && sudo nixos-rebuild switch --flake .#$(HOST_NAME)
+
+update: check-host
+	@echo "Running: cd $(HOST_NAME) && nix flake update"
+	@cd $(HOST_NAME) && nix flake update
 
 help:
 	@echo "NixOS Configuration Makefile"
