@@ -41,6 +41,7 @@
     xbindkeys
     xbindkeys-config
     virt-manager
+    qbittorrent
     pavucontrol
     vscode
     arandr
