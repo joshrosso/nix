@@ -1,4 +1,4 @@
-.PHONY: rebuild update check-host help
+.PHONY: rebuild update clean check-host help
 
 # Default target
 .DEFAULT_GOAL := rebuild
@@ -27,6 +27,10 @@ update: check-host
 	@echo "Running: cd $(HOST_NAME) && nix flake update"
 	@cd $(HOST_NAME) && nix flake update
 
+clean: check-host
+	@echo "Running: nix store gc --verbose"
+	@nix store gc --verbose
+
 help:
 	@echo "NixOS Configuration Makefile"
 	@echo ""
@@ -34,4 +38,6 @@ help:
 	@echo ""
 	@echo "Available targets:"
 	@echo "  rebuild (default) - Rebuild and switch NixOS configuration"
+	@echo "  update            - Update flake dependencies"
+	@echo "  clean             - Run garbage collection on the Nix store"
 	@echo "  help              - Show this help message"
