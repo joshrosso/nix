@@ -116,3 +116,51 @@ darwin-rebuild switch --flake ./mbp
     ```
     NIXOS_INSTALL_BOOTLOADER=1 /nix/var/nix/profiles/system/bin/switch-to-configuration boot
     ```
+
+## Known Errors
+
+### NPM `ECONNRESET` errors.
+
+Likely due to being on an ipv6-only network. Disable ipv6 or use a VPN that
+switches you over to ipv4. I've note done an RCA to understand why TLS breaks
+here.
+
+Error message:
+
+```txt
+error: Cannot build '/nix/store/i92s122vxw1q9lrlkrj6bjdzjqy0vhsw-offline.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/ins2masfgc9s44nnak3qi2plw3yjwm9j-offline
+       Last 25 log lines:
+       > downloading https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.1.tgz
+       > downloading https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-6.1.0.tgz
+       > downloading https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-4.3.0.tgz
+       > downloading https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.2.1.tgz
+       > downloading https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-5.0.0-alpha.10.tgz
+       > downloading https://registry.yarnpkg.com/app-builder-lib/-/app-builder-lib-25.1.8.tgz
+       > node:events:497
+       >       throw er; // Unhandled 'error' event
+       >       ^
+       >
+       > Error: read ECONNRESET
+       >     at TLSWrap.onStreamRead (node:internal/stream_base_commons:216:20)
+       > Emitted 'error' event on ClientRequest instance at:
+       >     at emitErrorEvent (node:_http_client:107:11)
+       >     at TLSSocket.socketErrorListener (node:_http_client:574:5)
+       >     at TLSSocket.emit (node:events:519:28)
+       >     at emitErrorNT (node:internal/streams/destroy:170:8)
+       >     at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+       >     at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+       >   errno: -104,
+       >   code: 'ECONNRESET',
+       >   syscall: 'read'
+       > }
+       >
+       > Node.js v22.21.1
+       For full logs, run:
+         nix log /nix/store/i92s122vxw1q9lrlkrj6bjdzjqy0vhsw-offline.drv
+```
+
+
+
