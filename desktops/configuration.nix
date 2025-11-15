@@ -36,10 +36,8 @@
 
   services.logrotate.checkConfig = false;
 
-  services.samba.nsswins = true;
-  services.samba.enable = true;
   # retrieve list with `timedatectl list-timezones`
-  time.timeZone = "America/Denver";
+  time.timeZone = "America/New_York";
 
   hardware.graphics = {
     enable = true;
@@ -236,4 +234,44 @@
     "nix-command"
     "flakes"
   ];
+
+  # UNCOMMENT FOR SAMBA (temporary file shares)
+  # TODO: Enable this always, but have samba.target-related services disabled
+  /*
+    services.samba = {
+      enable = true;
+      securityType = "user";
+      openFirewall = true;
+      settings = {
+        global = {
+          "workgroup" = "WORKGROUP";
+          "server string" = "smbnix";
+          "netbios name" = "smbnix";
+          "security" = "user";
+          #"use sendfile" = "yes";
+          #"max protocol" = "smb2";
+          # note: localhost is the ipv6 localhost ::1
+          "hosts allow" = "0.0.0.0/0";
+          #"hosts deny" = "0.0.0.0/0";
+          "guest account" = "nobody";
+          "map to guest" = "bad user";
+        };
+        "public" = {
+          "path" = "/mnt/Shares/Public";
+          "browseable" = "yes";
+          "read only" = "no";
+          "guest ok" = "yes";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "josh";
+          "force group" = "wheel";
+        };
+      };
+    };
+
+    services.samba-wsdd = {
+      enable = true;
+      openFirewall = true;
+    };
+  */
 }
