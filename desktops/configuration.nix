@@ -162,6 +162,10 @@
     dmenu
     virt-manager
     nvtopPackages.full
+    # packages required by KDE for printing
+    kdePackages.print-manager
+    system-config-printer
+    cups
   ];
 
   # ============================================
@@ -215,6 +219,11 @@
       # optional:
       domain = "localhost";
     };
+  };
+
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.epson-escpr ];
   };
 
   # Tell Xorg to use the nvidia driver
