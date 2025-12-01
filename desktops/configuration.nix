@@ -37,7 +37,7 @@
   services.logrotate.checkConfig = false;
 
   # retrieve list with `timedatectl list-timezones`
-  time.timeZone = "America/New_York";
+  time.timeZone = "America/Denver";
 
   hardware.graphics = {
     enable = true;
