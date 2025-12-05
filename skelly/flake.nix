@@ -34,6 +34,7 @@
           # us default generated config
           ./hardware-configuration.nix
           ../desktops/configuration.nix
+          ../desktops/configuration-desktop-linux.nix
           ../scripts/ts.nix
 
           home-manager.nixosModules.home-manager
