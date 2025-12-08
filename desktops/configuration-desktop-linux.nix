@@ -1,6 +1,4 @@
 {
-  config,
-  lib,
   pkgs,
   ...
 }:
@@ -9,7 +7,12 @@
 
 {
 
-  services.unifi.enable = true;
+  services.unifi = {
+    enable = true;
+    # using CE is needed since mongodb otherwise needs to be fully compiled
+    # https://wiki.nixos.org/wiki/MongoDB
+    mongodbPackage = pkgs.mongodb-ce;
+  };
 
   # https://nixos.wiki/wiki/Mosquitto
   services.mosquitto = {
