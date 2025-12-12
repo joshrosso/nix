@@ -11,7 +11,7 @@
       ...
     }:
     {
-      nixosConfigurations.skelly = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.hermes = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           { nixpkgs.overlays = [ ]; }
