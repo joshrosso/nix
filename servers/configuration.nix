@@ -7,7 +7,7 @@
 
 {
   # ============================================
-  # [HOST CONFIG]
+  # [HOST_CONFIG]
   # ============================================
   # retrieve list with `timedatectl list-timezones`
   time.timeZone = "America/Denver";
@@ -87,7 +87,7 @@
   systemd.services.libvirtd.wantedBy = lib.mkForce [ ];
 
   # ============================================
-  # [NETWORKING AND SECURITY]
+  # [NETWORKING_AND_SECURITY]
   # ============================================
   networking.firewall.enable = false;
 
@@ -97,7 +97,7 @@
   };
 
   # ============================================
-  # [NIXOS MAIN SETTINGS]
+  # [NIXOS_OS_SETTINGS]
   # ============================================
   system.stateVersion = "25.11";
   nix.settings.experimental-features = [
@@ -108,7 +108,7 @@
   nix.settings.download-buffer-size = 524288000;
 
   # ============================================
-  # [TODOs]
+  # [TODOS]
   # ============================================
   # REFACTOR THIS TO WORK WITH SAMBA
   # TODO: Enable this always, but have samba.target-related services disabled
