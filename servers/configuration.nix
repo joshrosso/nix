@@ -37,14 +37,13 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    fzf
     clang
-    dxvk
     ffmpeg_7-full
     gcc
     git
     gnumake
     inetutils
-    mangohud
     mqtt-exporter
     neovim
     nmap
