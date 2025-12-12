@@ -166,6 +166,8 @@
     kdePackages.print-manager
     system-config-printer
     cups
+    mqtt-exporter
+    ffmpeg_7-full
   ];
 
   # ============================================
@@ -183,7 +185,6 @@
   # ref: https://discourse.nixos.org/t/disable-a-systemd-service-while-having-it-in-nixoss-conf/12732/3
   systemd.services.docker.wantedBy = lib.mkForce [ ];
   systemd.services.libvirtd.wantedBy = lib.mkForce [ ];
-  systemd.services.grafana.wantedBy = lib.mkForce [ ];
 
   # ============================================
   # [PROGRAMS]
@@ -210,16 +211,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  services.grafana = {
-    enable = true;
-    settings.server = {
-      http_addr = "0.0.0.0";
-      http_port = 3000;
-      # optional:
-      domain = "localhost";
-    };
-  };
 
   services.printing = {
     enable = true;

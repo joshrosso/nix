@@ -6,6 +6,43 @@
 # TODO(joshrosso): This is all temporary until my server parts arrive
 
 {
+  services.grafana = {
+    enable = true;
+    settings.server = {
+      http_addr = "0.0.0.0";
+      http_port = 3000;
+      # optional:
+      domain = "localhost";
+    };
+  };
+
+  services.prometheus = {
+    # https://wiki.nixos.org/wiki/Prometheus
+    # https://nixos.org/manual/nixos/stable/#module-services-prometheus-exporters-configuration
+    # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/nixos/modules/services/monitoring/prometheus/default.nix
+    exporters.mqtt = {
+      enable = true;
+      mqttUsername = "mqtt-exporter";
+      port = 9001;
+      environmentFile = "/home/josh/mqtt-pass";
+      esphomeTopicPrefixes = [
+        "whitney-svc-panel-vue3/sensor"
+        "xcel/sensor/Instantaneous_Demand"
+      ];
+    };
+    enable = true;
+    globalConfig.scrape_interval = "10s"; # "1m"
+    scrapeConfigs = [
+      {
+        job_name = "mqtt-broker";
+        static_configs = [
+          {
+            targets = [ "localhost:9001" ];
+          }
+        ];
+      }
+    ];
+  };
 
   services.unifi = {
     enable = true;
@@ -19,6 +56,14 @@
     enable = true;
     listeners = [
       {
+        users.mqtt-exporter = {
+          acl = [ "read #" ];
+          hashedPassword = "$7$101$JdopfXMasddKQLdf$bz8rcvVEKG3I6Y6o+lSUgT44UE5RTBsAGpgEYHE4Sp43ETjOzqWRnxou46dMF3tKnOIefkNN0jjw9taQFOj7dA==";
+        };
+        users.xcel_itron2mqtt = {
+          acl = [ "readwrite #" ];
+          hashedPassword = "$7$101$JdopfXMasddKQLdf$bz8rcvVEKG3I6Y6o+lSUgT44UE5RTBsAGpgEYHE4Sp43ETjOzqWRnxou46dMF3tKnOIefkNN0jjw9taQFOj7dA==";
+        };
         users.emporia-svc-panel = {
           acl = [ "readwrite #" ];
           # nix shell nixpkgs#mosquitto --command mosquitto_passwd -c /tmp/passwd root
