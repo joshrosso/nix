@@ -52,6 +52,7 @@
     ripgrep
     tmux
     vault-bin
+    yt-dlp
     virt-manager
   ];
 
