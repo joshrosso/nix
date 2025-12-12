@@ -32,7 +32,7 @@
       enable = true;
       mqttUsername = "mqtt-exporter";
       port = 9001;
-      environmentFile = "/home/josh/mqtt-pass";
+      environmentFile = "/var/lib/extra/mqtt.env";
       esphomeTopicPrefixes = [
         "whitney-svc-panel-vue3/sensor"
         "xcel/sensor/Instantaneous_Demand"
@@ -48,6 +48,28 @@
             targets = [ "192.168.0.54:9001" ];
           }
         ];
+      }
+    ];
+  };
+
+  # https://nixos.wiki/wiki/Mosquitto
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        users.mqtt-exporter = {
+          acl = [ "read #" ];
+          hashedPassword = "$7$101$JdopfXMasddKQLdf$bz8rcvVEKG3I6Y6o+lSUgT44UE5RTBsAGpgEYHE4Sp43ETjOzqWRnxou46dMF3tKnOIefkNN0jjw9taQFOj7dA==";
+        };
+        users.xcel_itron2mqtt = {
+          acl = [ "readwrite #" ];
+          hashedPassword = "$7$101$JdopfXMasddKQLdf$bz8rcvVEKG3I6Y6o+lSUgT44UE5RTBsAGpgEYHE4Sp43ETjOzqWRnxou46dMF3tKnOIefkNN0jjw9taQFOj7dA==";
+        };
+        users.emporia-svc-panel = {
+          acl = [ "readwrite #" ];
+          # nix shell nixpkgs#mosquitto --command mosquitto_passwd -c /tmp/passwd root
+          hashedPassword = "$7$101$JdopfXMasddKQLdf$bz8rcvVEKG3I6Y6o+lSUgT44UE5RTBsAGpgEYHE4Sp43ETjOzqWRnxou46dMF3tKnOIefkNN0jjw9taQFOj7dA==";
+        };
       }
     ];
   };
