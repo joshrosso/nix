@@ -25,6 +25,7 @@
           # us default generated config
           ./hardware-configuration.nix
           ./services.nix
+          ./bootloader.nix
           ../servers/configuration.nix
           ../scripts/ts.nix
         ];
