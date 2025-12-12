@@ -45,7 +45,7 @@
         job_name = "mqtt-broker";
         static_configs = [
           {
-            targets = [ "192.168.0.54:9001" ];
+            targets = [ "localhost:9001" ];
           }
         ];
       }
