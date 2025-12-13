@@ -1,9 +1,11 @@
-{ ... }:
+{ config, pkgs, ... }:
 {
-  # loads driver for xorg & wayland
+
+  # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
+    # Modesetting is required.
     modesetting.enable = true;
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption issues or application crashes after waking

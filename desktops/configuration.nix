@@ -217,12 +217,6 @@
     drivers = [ pkgs.epson-escpr ];
   };
 
-  # Tell Xorg to use the nvidia driver
-  # You may not want to do this if using nvidia offload to
-  # save GPU
-  #  services.xserver.videoDrivers = [ "nvidia" ];
-  #  hardware.nvidia.open = true;
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
