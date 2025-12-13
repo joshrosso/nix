@@ -13,7 +13,7 @@
     ];
     packages = with pkgs; [
       discord
-      google-chrome-stable
+      google-chrome
       zoom-us
       spotify
     ];
