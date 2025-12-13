@@ -27,12 +27,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/64b952fa-239f-46bb-84fc-312ec370d8ea";
+    device = "/dev/disk/by-uuid/1834f8aa-fa78-4ab7-a2c9-5159e540a2df";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/1031-A2E2";
+    device = "/dev/disk/by-uuid/6FB1-7429";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -41,7 +41,7 @@
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/5c2d394c-f237-4d02-95e2-4f26d0e3d3d1";
+    device = "/dev/disk/by-uuid/d3d8215a-6ffd-4e4e-bf0b-cc86fb30ff27";
     fsType = "ext4";
   };
 
@@ -52,8 +52,8 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp9s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp8s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp11s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -68,15 +68,9 @@
         enableCryptodisk = true;
         # 30 is for HIDPI
         fontSize = 30;
-        extraEntries = ''
-          menuentry 'Windows 11' {
-            search --fs-uuid --no-floppy --set=root A8C3-093C
-            chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
-          }
-        '';
       };
     };
-    initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/5865bbe2-a5c4-4b6a-991f-c8eab8fb7bf8";
+    initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/4459c820-6579-42ae-9626-c68b2b22b5dd";
   };
 
 }
